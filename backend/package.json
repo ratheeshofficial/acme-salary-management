@@ -4,9 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "start:dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "typeorm": "tsx node_modules/typeorm/cli.js -d src/config/database.ts",
+    "migration:generate": "tsx node_modules/typeorm/cli.js migration:generate -d src/config/database.ts",
+    "migration:create": "tsx node_modules/typeorm/cli.js migration:create",
+    "migration:run": "tsx node_modules/typeorm/cli.js migration:run -d src/config/database.ts",
+    "migration:revert": "tsx node_modules/typeorm/cli.js migration:revert -d src/config/database.ts",
+    "db:generate": "tsx node_modules/typeorm/cli.js migration:generate -d src/config/database.ts",
+    "db:create": "tsx node_modules/typeorm/cli.js migration:create",
+    "db:run": "tsx node_modules/typeorm/cli.js migration:run -d src/config/database.ts",
+    "db:revert": "tsx node_modules/typeorm/cli.js migration:revert -d src/config/database.ts"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +34,7 @@
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.3",
     "tsx": "^4.23.15",
+    "typeorm-ts-node-commonjs": "^0.3.20",
     "typescript": "^7.0.2"
   }
 }
