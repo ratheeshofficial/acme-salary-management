@@ -5,11 +5,13 @@ import {
   CreateDateColumn,
   ManyToOne,
   JoinColumn,
+  Unique,
 } from 'typeorm';
 
 import { Employee } from './Employee';
 
 @Entity('salaries')
+@Unique('UQ_salaries_employee_effective_from', ['employee_id', 'effective_from'])
 export class Salary {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
@@ -24,7 +26,7 @@ export class Salary {
   currency!: string;
 
   @Column({ type: 'date' })
-  effective_from!: Date;
+  effective_from!: string;
 
   @CreateDateColumn()
   created_at!: Date;

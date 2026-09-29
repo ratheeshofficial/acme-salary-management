@@ -5,6 +5,8 @@ import { DataSource } from 'typeorm';
 import { User } from '../entities/User';
 import { Employee } from '../entities/Employee';
 import { Salary } from '../entities/Salary';
+import { Init1790681444057 } from '../migrations/1790681444057-Init';
+import { AddSearchIndexes1790682000000 } from '../migrations/1790682000000-AddSearchIndexes';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -18,5 +20,5 @@ export const AppDataSource = new DataSource({
   logging: false,
 
   entities: [User, Employee, Salary],
-  migrations: ['src/migrations/*.ts'],
+  migrations: [Init1790681444057, AddSearchIndexes1790682000000],
 });
