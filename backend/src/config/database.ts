@@ -19,6 +19,10 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   logging: false,
 
+  ssl: {
+    rejectUnauthorized: false,
+  },
+
   entities: [User, Employee, Salary],
   migrations: [Init1790681444057, AddSearchIndexes1790682000000],
 });
