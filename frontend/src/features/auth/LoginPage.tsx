@@ -16,9 +16,9 @@ import { Wallet } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import { ApiError, api } from '../../services/api.ts'
+import { ApiError } from '../../api/client.ts'
+import { authRepository } from '../../repositories/auth/authRepository.ts'
 import { useAuthStore } from '../../store/authStore.ts'
-import type { LoginResult } from '../../types/api.ts'
 import { loginSchema, type LoginInput } from './loginSchema.ts'
 
 export function LoginPage() {
@@ -34,11 +34,7 @@ export function LoginPage() {
   })
 
   const login = useMutation({
-    mutationFn: (values: LoginInput) =>
-      api<LoginResult>('/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify(values),
-      }),
+    mutationFn: (values: LoginInput) => authRepository.login(values),
     onSuccess: (data) => {
       setSession(data.token, data.user)
       navigate('/', { replace: true })

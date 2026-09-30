@@ -8,13 +8,13 @@ import { SectionCard } from '../../components/SectionCard.tsx'
 import { StatCard } from '../../components/StatCard.tsx'
 import { queryKeys } from '../../services/queryKeys.ts'
 import type { Dashboard, SalaryBand } from '../../types/api.ts'
-import { getDashboard } from './api.ts'
+import { dashboardRepository } from '../../repositories/dashboard/dashboardRepository.ts'
 import { GroupBarChart } from './GroupBarChart.tsx'
 
 export function DashboardPage() {
   const dashboard = useQuery({
     queryKey: queryKeys.dashboard,
-    queryFn: getDashboard,
+    queryFn: () => dashboardRepository.get(),
     staleTime: 5 * 60 * 1000,
   })
 

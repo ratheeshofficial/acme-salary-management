@@ -7,21 +7,21 @@ import { Money } from '../../components/Money.tsx'
 import { QueryState } from '../../components/QueryState.tsx'
 import { SectionCard } from '../../components/SectionCard.tsx'
 import { queryKeys } from '../../services/queryKeys.ts'
-import { listSalaries } from '../salaries/api.ts'
+import { employeeRepository } from '../../repositories/employee/employeeRepository.ts'
+import { salaryRepository } from '../../repositories/salary/salaryRepository.ts'
 import { SalaryForm } from '../salaries/SalaryForm.tsx'
 import { SalaryHistory } from '../salaries/SalaryHistory.tsx'
-import { getEmployee } from './api.ts'
 
 export function EmployeeDetailPage() {
   const { id = '' } = useParams()
   const employeeQuery = useQuery({
     queryKey: queryKeys.employee(id),
-    queryFn: () => getEmployee(id),
+    queryFn: () => employeeRepository.getById(id),
     enabled: Boolean(id),
   })
   const salariesQuery = useQuery({
     queryKey: queryKeys.salaries(id),
-    queryFn: () => listSalaries(id),
+    queryFn: () => salaryRepository.listByEmployeeId(id),
     enabled: Boolean(id),
   })
 

@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { LayoutDashboard, LogOut, Users, Wallet, type LucideIcon } from 'lucide-react'
 import { Link as RouterLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
-import { api } from '../services/api.ts'
+import { authRepository } from '../repositories/auth/authRepository.ts'
 import { useAuthStore } from '../store/authStore.ts'
 
 const NAV: { to: string; label: string; icon: LucideIcon }[] = [
@@ -23,7 +23,7 @@ export function AppShell() {
   const clearSession = useAuthStore((state) => state.clearSession)
 
   const logout = useMutation({
-    mutationFn: () => api<void>('/api/auth/logout', { method: 'POST' }),
+    mutationFn: () => authRepository.logout(),
     onSettled: () => {
       clearSession()
       queryClient.clear()

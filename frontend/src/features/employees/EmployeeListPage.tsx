@@ -24,7 +24,7 @@ import { PaginationBar } from '../../components/PaginationBar.tsx'
 import { QueryState } from '../../components/QueryState.tsx'
 import { queryKeys } from '../../services/queryKeys.ts'
 import type { Employee } from '../../types/api.ts'
-import { listEmployees, listFilters } from './api.ts'
+import { employeeRepository } from '../../repositories/employee/employeeRepository.ts'
 import { parseEmployeeQuery, type EmployeeQuery, type SortField } from './employeeQuery.ts'
 
 export function EmployeeListPage() {
@@ -64,12 +64,12 @@ export function EmployeeListPage() {
 
   const employees = useQuery({
     queryKey: queryKeys.employees(query),
-    queryFn: () => listEmployees(query),
+    queryFn: () => employeeRepository.list(query),
     placeholderData: keepPreviousData,
   })
   const filters = useQuery({
     queryKey: queryKeys.filters,
-    queryFn: listFilters,
+    queryFn: () => employeeRepository.getFilters(),
     staleTime: 5 * 60 * 1000,
   })
 
